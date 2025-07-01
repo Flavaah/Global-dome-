@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "navn": "Exempelbolag AB",
+    "orgnr": "556677-8899",
+    "eier": "Anna Andersson",
+    "telefon": "0701234567",
+    "epost": "info@exempelbolag.se",
+    "adresse": "Storgatan 1, 123 45 Stad",
+    "ny": true
+  }
+]
