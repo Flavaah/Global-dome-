@@ -1,18 +1,18 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { verifySession } from './auth/session';
-
-const protectedRoutes = ['/dashboard', '/admin'];
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { verifySession } from "@/auth/session";
 
 export async function middleware(req: NextRequest) {
-  if (protectedRoutes.some((route) => req.nextUrl.pathname.startsWith(route))) {
-    const session = await verifySession(req);
-    if (!session || session.role !== 'admin' && req.nextUrl.pathname.startsWith('/admin')) {
-      return NextResponse.redirect(new URL('/login', req.url));
-    }
+  const session = await verifySession(req);
+
+  // Om användaren inte är inloggad, skicka till /login
+  if (!session && req.nextUrl.pathname.startsWith("/dashboard")) {
+    return NextResponse.redirect(new URL("/login", req.url));
   }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/admin/:path*']
+  matcher: ["/dashboard/:path*"]
 };
