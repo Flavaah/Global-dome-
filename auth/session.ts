@@ -14,3 +14,10 @@ export async function protectRoute(handler) {
     return handler(req, res);
   };
 }
+
+// Enkel verifySession för utveckling
+export async function verifySession(req: any) {
+  // Här kan du läsa cookies, headers eller annat för att verifiera session
+  // För utveckling: returnera en fejkad session
+  return { role: 'admin', user: 'dev' };
+}
