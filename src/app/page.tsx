@@ -3,6 +3,10 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import TopBar from "../components/TopBar";
 import dynamic from "next/dynamic";
+
+const CompanyTable = dynamic(() => import("../components/CompanyTable"), {
+  ssr: false,
+});
 // Data hämtas dynamiskt med fetch
 import { auth } from "../lib/auth";
 
@@ -72,9 +76,7 @@ export default function Home() {
         <p className="text-center text-gray-300">Laddar företag...</p>
       ) : (
         <div className="bg-white rounded-xl p-4 shadow">
-          {typeof window !== "undefined" && (
-            dynamic(() => import("../components/CompanyTable"), { ssr: false })({ companies: companiesData })
-          )}
+          {typeof window !== "undefined" && <CompanyTable companies={companiesData} />}
         </div>
       )}
     </main>
